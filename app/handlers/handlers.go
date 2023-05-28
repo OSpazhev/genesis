@@ -11,7 +11,7 @@ import (
 func write(writer http.ResponseWriter, message []byte) {
 	_, err := writer.Write(message)
 	if err != nil {
-		writer.WriteHeader(500)
+		writer.WriteHeader(http.StatusInternalServerError)
 		log.Fatal(err)
 	}
 }
@@ -19,7 +19,7 @@ func write(writer http.ResponseWriter, message []byte) {
 func badStatus(writer http.ResponseWriter) {
 	if err := recover(); err != nil {
 		log.Println(err)
-		writer.WriteHeader(400)
+		writer.WriteHeader(http.StatusBadRequest)
 	}
 
 }
@@ -28,7 +28,8 @@ func RateHandler(writer http.ResponseWriter, _ *http.Request) {
 	defer badStatus(writer)
 	rate, err := rateweb.GetRate()
 	if err != nil {
-		writer.WriteHeader(500)
+		writer.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	message := []byte(fmt.Sprintf("%f", rate))
@@ -42,6 +43,4 @@ func SubscribeHandler(writer http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		writer.WriteHeader(http.StatusConflict)
 	}
-
-	writer.Write([]byte{})
 }
