@@ -2,8 +2,8 @@ package rate
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
+	"time"
 )
 
 type RateInfo struct {
@@ -16,7 +16,6 @@ type RateInfo struct {
 func getCoinAPIRequest() (*http.Request, error) {
 	req, err := http.NewRequest("GET", "https://rest.coinapi.io/v1/exchangerate/BTC/UAH", nil)
 	if err != nil {
-		log.Fatal(err)
 		return nil, err
 	}
 
@@ -42,10 +41,10 @@ func GetRate() (float64, error) {
 		return 0, err
 	}
 
-	client := &http.Client{}
+	client := &http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, err
+		panic(err)
 	}
 
 	rateInfo, err := parseRateInfo(resp)
