@@ -14,7 +14,7 @@ type RateInfo struct {
 	Rate           float64
 }
 
-func getCoinAPIRequest() (*http.Request, error) {
+func createCoinAPIRequest() (*http.Request, error) {
 	req, err := http.NewRequest("GET", "https://rest.coinapi.io/v1/exchangerate/BTC/UAH", nil)
 	if err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func parseRateInfo(resp *http.Response) (*RateInfo, error) {
 }
 
 func GetRate() (float64, error) {
-	req, err := getCoinAPIRequest()
+	req, err := createCoinAPIRequest()
 	if err != nil {
 		return 0, err
 	}
