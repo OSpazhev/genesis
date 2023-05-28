@@ -1,4 +1,4 @@
-# GSES2 BTC application
+# BTC application
 
 ## How to run
 Run the next commands to start the app:
