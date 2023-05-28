@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"github.com/ospazhev/genesis/app/web/email"
 	rateweb "github.com/ospazhev/genesis/app/web/rate"
 	"github.com/ospazhev/genesis/app/web/subscription"
 	"log"
@@ -42,5 +43,21 @@ func SubscribeHandler(writer http.ResponseWriter, r *http.Request) {
 	err := subscription.Subscribe(value)
 	if err != nil {
 		writer.WriteHeader(http.StatusConflict)
+	}
+}
+
+func SendEmailsHandler(writer http.ResponseWriter, _ *http.Request) {
+	defer badStatus(writer)
+	rate, err := rateweb.GetRate()
+	if err != nil {
+		log.Println(err)
+		writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	err = email.SendRate(rate)
+	if err != nil {
+		log.Println(err)
+		writer.WriteHeader(http.StatusInternalServerError)
 	}
 }

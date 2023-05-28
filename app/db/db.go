@@ -54,6 +54,16 @@ func (d *Database) IsSubscriber(id string) bool {
 
 }
 
+func (d *Database) Subscribers() []string {
+	var subscribers []string
+	for key, value := range d.subscribers {
+		if value == true {
+			subscribers = append(subscribers, key)
+		}
+	}
+	return subscribers
+}
+
 func init() {
 	dbPath = os.Getenv("DATAPATH")
 	if len(dbPath) == 0 {
