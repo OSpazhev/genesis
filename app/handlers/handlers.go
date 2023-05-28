@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	rateweb "github.com/ospazhev/genesis/app/web/rate"
+	"github.com/ospazhev/genesis/app/web/subscription"
 	"log"
 	"net/http"
 )
@@ -32,4 +33,15 @@ func RateHandler(writer http.ResponseWriter, _ *http.Request) {
 
 	message := []byte(fmt.Sprintf("%f", rate))
 	write(writer, message)
+}
+
+func SubscribeHandler(writer http.ResponseWriter, r *http.Request) {
+	value := r.FormValue("email")
+
+	err := subscription.Subscribe(value)
+	if err != nil {
+		writer.WriteHeader(http.StatusConflict)
+	}
+
+	writer.Write([]byte{})
 }

@@ -9,6 +9,7 @@ import (
 func main() {
 	log.Println("Starting web app...")
 	http.HandleFunc("/rate", handlers.RateHandler)
+	http.HandleFunc("/subscribe", handlers.SubscribeHandler)
 	err := http.ListenAndServe(":8080", nil)
 	log.Fatal(err)
 }

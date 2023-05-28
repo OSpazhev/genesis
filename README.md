@@ -7,6 +7,9 @@ Run the next commands to start the app:
 
 App is available on http://localhost:8080
 
+If you want to remember subscribers from previous run, please run docker with parameter `-v` like:
+- `docker build -t btc-application . -v <local path>:/data`
+
 
 
 

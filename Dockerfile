@@ -5,4 +5,6 @@ WORKDIR /go/src/github.com/ospazhev/genesis/app/
 
 ENV GO111MODULE auto
 
+ENV DATAPATH "/data/"
+
 CMD ["go", "run", "main.go"]
