@@ -11,7 +11,7 @@ If you want to remember subscribers from previous run, please run docker with pa
 - `docker build -t btc-application . -v <local path>:/data`
 
 
-
+P.s.: I know that key storing in Dockerfile (and in git) is not secure, but it's just for reviewer 
 
 
 

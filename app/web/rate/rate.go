@@ -3,6 +3,7 @@ package rate
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -19,7 +20,7 @@ func getCoinAPIRequest() (*http.Request, error) {
 		return nil, err
 	}
 
-	req.Header.Set("X-CoinAPI-Key", "01F76A3F-1B3A-4B61-84A7-2EF25DD8A3CA")
+	req.Header.Set("X-CoinAPI-Key", os.Getenv("CoinAPIKey"))
 
 	return req, nil
 }
